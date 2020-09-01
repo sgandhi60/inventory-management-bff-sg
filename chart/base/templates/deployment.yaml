@@ -59,8 +59,14 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.name
-            - name: LOG_LEVEL
-              value: {{ .Values.logLevel | quote }}
+              - name: INGRESS_HOST
+                value: ""
+              - name: PROTOCOLS
+                value: ""
+              - name: LOG_LEVEL
+                value: {{ .Values.logLevel | quote }}
+              - name: SERVICE_URL
+                value: {{ printf "%s:80" .Values.connectsTo | quote }}
           envFrom:
             - configMapRef:
                 name: {{ default "jaeger-config" .Values.jaegerConfigName }}
